@@ -1,16 +1,17 @@
 version: '3.8'
 services:
   api:
-    build: .
+    build: ./api
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     volumes:
-      - .:/usr/src/app
+      - ./api:/usr/src/app/api  # Make sure this matches the structure in your Dockerfile
     ports:
       - "8000:8000"
     depends_on:
       - db
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/mydatabase
+      - PYTHONPATH=/usr/src/app
 
   db:
     image: postgres:latest
@@ -20,6 +21,13 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=mydatabase
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
 
 volumes:
   postgres_data:
