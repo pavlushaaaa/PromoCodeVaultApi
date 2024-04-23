@@ -13,6 +13,5 @@ class UserModel(Base):
     last_name = Column(String(255))
     password_hash = Column(String(255))
 
-    # Relationship to TokenModel
     tokens = relationship("TokenModel", back_populates="user", cascade="all, delete-orphan")
 
