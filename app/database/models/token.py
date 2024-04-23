@@ -1,6 +1,5 @@
 from datetime import datetime
-
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Boolean
 from sqlalchemy.orm import relationship
 
 from app.database.models import Base
@@ -16,5 +15,7 @@ class TokenModel(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
     expires_at = Column(DateTime)
+    used = Column(Boolean, default=False)
+    revoked_at = Column(DateTime)
 
     user = relationship("UserModel", back_populates="tokens")
