@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
-from sql_app.models import Base
+from app.database.models import Base
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 class UserModel(Base):
     __tablename__ = "users"
@@ -11,3 +12,7 @@ class UserModel(Base):
     first_name = Column(String(255))
     last_name = Column(String(255))
     password_hash = Column(String(255))
+
+    # Relationship to TokenModel
+    tokens = relationship("TokenModel", back_populates="user", cascade="all, delete-orphan")
+
