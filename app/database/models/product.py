@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from app.database.models import Base
 from datetime import datetime
+
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+
+from app.database.models import Base
 
 
 class ProductModel(Base):
@@ -11,4 +13,3 @@ class ProductModel(Base):
     name = Column(String(20))
     description = Column(String(255))
     user_id = Column(Integer, ForeignKey("users.id"))
-

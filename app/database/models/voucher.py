@@ -1,8 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean
-from sqlalchemy.dialects.postgresql import UUID
-from app.database.models import Base
-from datetime import datetime
 import uuid
+from datetime import datetime
+
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.dialects.postgresql import UUID
+
+from app.database.models import Base
+
 
 class VoucherModel(Base):
     __tablename__ = "vouchers"
@@ -25,5 +28,3 @@ class VoucherCodeModel(Base):
     used = Column(Boolean, default=False)
     used_at = Column(DateTime, default=datetime.utcnow)
     last_retrieved_at = Column(DateTime)
-
-
