@@ -33,7 +33,12 @@ migrate-create:
 migrate-up:
 	alembic upgrade head
 
+# Command to count the number of files tracked by Git
+count-files:
+	@echo "Counting files tracked by Git..."
+	@echo $(shell git ls-files | wc -l) files are tracked by Git.
+
 # Command to run all of the formatting and linting
 all: sort format lint
 
-.PHONY: format sort lint run migrate-create migrate-up all
+.PHONY: format sort lint run migrate-create migrate-up count-files all
