@@ -10,3 +10,4 @@ class UserModel(Base):
     email = Column(String(255), unique=True)
     first_name = Column(String(255))
     last_name = Column(String(255))
+    password_hash = Column(String(255))
