@@ -15,7 +15,7 @@ class TokenModel(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     created_at = Column(DateTime, default=datetime.utcnow)
     expires_at = Column(DateTime)
-    used = Column(Boolean, default=False)
-    revoked_at = Column(DateTime)
+    revoked = Column(Boolean, default=False)
+    revoked_at = Column(DateTime, nullable=True)
 
     user = relationship("UserModel", back_populates="tokens")
