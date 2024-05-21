@@ -19,7 +19,7 @@ def get_voucher(
         raise HTTPException(status_code=404, detail="Voucher not found")
     if voucher.user_id != user.id:
         raise HTTPException(status_code=403, detail="Not authorized to view this voucher")
-    return voucher
+    return voucher.to_dict()
 
 
 @router.put("/voucher", response_model=VoucherSchema, tags=["vouchers"])
