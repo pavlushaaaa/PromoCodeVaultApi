@@ -6,7 +6,6 @@ from app.database.models import ProductModel, UserModel
 from app.schemas import DefaultSuccessResponse
 from app.schemas.product import ProductCreateSchema, ProductSchema, ProductIdSchema, ProductUpdateSchema
 from app.services.auth import get_current_user
-from fastapi import Request
 
 router = APIRouter()
 

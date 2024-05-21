@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
-from app.api.endpoints import user, product, token
+from app.api.endpoints import user, product, token, voucher, voucher_code
+from app.schemas import DefaultSuccessResponse
 
 tags_metadata = [
     {
@@ -33,6 +34,8 @@ app = FastAPI(
 app.include_router(user.router)
 app.include_router(product.router)
 app.include_router(token.router)
+app.include_router(voucher.router)
+app.include_router(voucher_code.router)
 
 
 def custom_openapi():
@@ -71,4 +74,4 @@ app.add_middleware(
 
 @app.get("/", tags=['index'])
 async def get():
-    return {"message": "ok"}
+    return DefaultSuccessResponse()
