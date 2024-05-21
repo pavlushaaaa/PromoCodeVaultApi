@@ -36,6 +36,7 @@ class VoucherModel(Base):
             "active": self.active,
             "discount_value": self.discount_value,
             "discount_type": self.discount_type,
+            "number_of_generated_codes": self.number_of_generated_codes
         }
 
 

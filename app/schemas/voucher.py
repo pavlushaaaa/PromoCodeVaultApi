@@ -13,12 +13,16 @@ class VoucherSchema(DiscountSchema):
     user_id: int
     product_id: int
     active: bool
+    number_of_generated_codes: int
 
 
 class VoucherCreateSchema(BaseModel):
     name: str
     description: str
     product_id: int
+    number_of_generated_codes: int
+    discount_type: str
+    discount_value: int
 
 
 
