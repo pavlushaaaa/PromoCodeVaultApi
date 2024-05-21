@@ -1,11 +1,11 @@
 from pydantic import BaseModel
-from datetime import datetime
+from app.schemas.discount import DiscountSchema
 
 class VoucherIdSchema(BaseModel):
     voucher_id: int
 
 
-class VoucherSchema(BaseModel):
+class VoucherSchema(DiscountSchema):
     id: int
     created_at: str
     name: str

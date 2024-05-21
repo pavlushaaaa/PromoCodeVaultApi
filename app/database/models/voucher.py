@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.dialects.postgresql import UUID
 from app.services.datetime_format import datetime_to_string
+from sqlalchemy.orm import relationship
 
 from app.database.models import Base
 
@@ -18,6 +19,11 @@ class VoucherModel(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
     active = Column(Boolean, default=False)
+    number_of_generated_codes = Column(Integer, default=0)
+    discount_value = Column(Integer)
+    discount_type = Column(String)
+
+    voucher_codes = relationship("VoucherCodeModel", back_populates="voucher")
 
     def to_dict(self):
         return {
@@ -27,7 +33,9 @@ class VoucherModel(Base):
             "description": self.description,
             "user_id": self.user_id,
             "product_id": self.product_id,
-            "active": self.active
+            "active": self.active,
+            "discount_value": self.discount_value,
+            "discount_type": self.discount_type,
         }
 
 
@@ -42,6 +50,8 @@ class VoucherCodeModel(Base):
     used_at = Column(DateTime, default=datetime.utcnow)
     last_retrieved_at = Column(DateTime)
 
+    voucher = relationship("VoucherModel", back_populates="voucher_codes")
+
     def to_dict(self):
         return {
             "id": self.id,
@@ -51,5 +61,7 @@ class VoucherCodeModel(Base):
             "used": self.used,
             "used_at": datetime_to_string(self.used_at) if self.used_at else None,
             "last_retrieved_at": datetime_to_string(self.last_retrieved_at) if self.last_retrieved_at else None,
+            "discount_value": self.voucher.discount_value,
+            "discount_type": self.voucher.discount_type,
         }
 
