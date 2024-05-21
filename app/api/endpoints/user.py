@@ -11,7 +11,7 @@ from datetime import timedelta, datetime
 router = APIRouter()
 
 
-@router.post("/users/", response_model=UserSchema)
+@router.post("/users/", response_model=UserSchema, tags=["users"])
 def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
     db_user = db.query(UserModel).filter(UserModel.email == user.email).first()
     if db_user:
@@ -28,7 +28,7 @@ def create_user(user: UserCreateSchema, db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
-@router.post("/login", response_model=dict)
+@router.post("/login", response_model=dict, tags=["users"])
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(UserModel).filter(UserModel.email == form_data.username).first()
     if not user or not verify_password(form_data.password, user.password_hash):
@@ -59,12 +59,13 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db:
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/logout")
+@router.post("/logout", tags=["users"])
 def logout(user: UserModel = Depends(get_current_user), db: Session = Depends(get_db)):
     active_tokens = db.query(TokenModel).filter(TokenModel.user_id == user.id, TokenModel.revoked_at.is_(None)).all()
     if active_tokens:
         for token in active_tokens:
             token.revoked_at = datetime.utcnow()
+            token.revoked = True
         db.commit()
         return {"message": "User logged out successfully, all tokens revoked."}
     return {"message": "No active session found or all sessions already revoked."}
