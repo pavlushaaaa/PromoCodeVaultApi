@@ -7,11 +7,12 @@ class VoucherIdSchema(BaseModel):
 
 class VoucherSchema(BaseModel):
     id: int
-    created_at: datetime
+    created_at: str
     name: str
     description: str
     user_id: int
     product_id: int
+    active: bool
 
 
 class VoucherCreateSchema(BaseModel):

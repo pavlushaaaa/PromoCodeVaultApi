@@ -1,6 +1,5 @@
 from pydantic import BaseModel
-from datetime import datetime
-from uuid import UUID
+from typing import Optional
 
 class VoucherCodeIdSchema(BaseModel):
     voucher_code_id: int
@@ -9,9 +8,9 @@ class VoucherCodeIdSchema(BaseModel):
 class VoucherCodeSchema(BaseModel):
     id: int
     voucher_id: int
-    created_at: datetime
-    code: UUID
+    created_at: Optional[str] = None
+    code: str
     used: bool
-    used_at: datetime
-    last_retrieval_at: datetime
+    used_at: Optional[str] = None
+    last_retrieved_at: Optional[str] = None
 

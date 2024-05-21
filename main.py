@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
-from app.api.endpoints import user, product, token, voucher, voucher_code
+from app.api.endpoints import user, product, token, voucher, voucher_code, analytics
 from app.schemas import DefaultSuccessResponse
 
 tags_metadata = [
@@ -36,6 +36,7 @@ app.include_router(product.router)
 app.include_router(token.router)
 app.include_router(voucher.router)
 app.include_router(voucher_code.router)
+app.include_router(analytics.router)
 
 
 def custom_openapi():

@@ -20,7 +20,7 @@ def get_voucher_details(
 
     if not voucher_code:
         raise HTTPException(status_code=404, detail="Voucher not found")
-    return voucher_code
+    return voucher_code.to_dict()
 
 
 @router.post("/voucher-code/{code}", response_model=DefaultSuccessResponse, tags=["voucher_codes"])
