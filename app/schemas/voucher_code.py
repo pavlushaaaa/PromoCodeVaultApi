@@ -14,5 +14,5 @@ class VoucherCodeSchema(DiscountSchema):
     used: bool
     used_at: Optional[str] = None
     last_retrieved_at: Optional[str] = None
-    metadata: Optional[dict] = None
+    code_metadata: Optional[dict] = None
 
