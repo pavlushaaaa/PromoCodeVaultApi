@@ -29,9 +29,9 @@ class VoucherModel(Base):
         return {
             "id": self.id,
             "created_at": datetime_to_string(self.created_at),
+            "user_id": self.user_id,
             "name": self.name,
             "description": self.description,
-            "user_id": self.user_id,
             "product_id": self.product_id,
             "active": self.active,
             "discount_value": self.discount_value,

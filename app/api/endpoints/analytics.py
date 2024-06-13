@@ -41,8 +41,8 @@ def get_all_products(
 def get_all_voucher_codes(db: Session = Depends(get_db),
                           user: UserModel = Depends(get_current_user)):
     total_voucher_codes = db.query(VoucherCodeModel).count()
-    total_unused_voucher_codes = db.query(VoucherCodeModel).filter(VoucherModel.used == False).count()
-    total_used_voucher_codes = db.query(VoucherCodeModel).filter(VoucherModel.used == True).count()
+    total_unused_voucher_codes = db.query(VoucherCodeModel).filter(VoucherCodeModel.used == False).count()
+    total_used_voucher_codes = db.query(VoucherCodeModel).filter(VoucherCodeModel.used == True).count()
     total_products = db.query(ProductModel).count()
     total_vouchers = db.query(VoucherModel).count()
     total_active_vouchers = db.query(VoucherModel).filter(VoucherModel.active == True).count()
