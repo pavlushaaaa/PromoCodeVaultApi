@@ -23,8 +23,7 @@ def get_voucher(
 
 
 @router.put("/voucher", response_model=VoucherSchema, tags=["vouchers"])
-def update_voucher(voucher: VoucherCreateSchema, db: Session = Depends(get_db),
-                   user: UserModel = Depends(get_current_user)):
+def update_voucher(voucher: VoucherCreateSchema, db: Session = Depends(get_db)):
     new_voucher = VoucherModel(**voucher.model_dump())
     new_voucher.user_id = user.id
     db.add(new_voucher)
@@ -32,9 +31,8 @@ def update_voucher(voucher: VoucherCreateSchema, db: Session = Depends(get_db),
     db.refresh(new_voucher)
     return new_voucher
 
-@router.post("/voucher", response_model=VoucherSchema, tags=["vouchers"])
-def create_voucher(voucher: VoucherCreateSchema, db: Session = Depends(get_db),
-                   user: UserModel = Depends(get_current_user)):
+@router.post("/voucher", tags=["vouchers"])
+def create_voucher(voucher: VoucherCreateSchema, db: Session = Depends(get_db)):
     new_voucher = VoucherModel(**voucher.model_dump())
     new_voucher.user_id = user.id
     db.add(new_voucher)
