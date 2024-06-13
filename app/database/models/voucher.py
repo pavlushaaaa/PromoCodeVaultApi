@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from app.services.datetime_format import datetime_to_string
 from sqlalchemy.orm import relationship
@@ -50,8 +50,9 @@ class VoucherCodeModel(Base):
     used = Column(Boolean, default=False)
     used_at = Column(DateTime, default=datetime.utcnow)
     last_retrieved_at = Column(DateTime)
-
     voucher = relationship("VoucherModel", back_populates="voucher_codes")
+
+    code_metadata = Column(JSON, nullable=True)
 
     def to_dict(self):
         return {
@@ -64,5 +65,6 @@ class VoucherCodeModel(Base):
             "last_retrieved_at": datetime_to_string(self.last_retrieved_at) if self.last_retrieved_at else None,
             "discount_value": self.voucher.discount_value,
             "discount_type": self.voucher.discount_type,
+            "metadata": self.code_metadata,
         }
 

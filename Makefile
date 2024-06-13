@@ -20,7 +20,7 @@ lint:
 
 # Command to run the application using uvicorn with the --reload flag
 run:
-	uvicorn $(APP_MODULE) --reload
+	uvicorn main:app --reload
 
 # Migration message variable
 MIGRATION_MSG ?= "Initial migration"

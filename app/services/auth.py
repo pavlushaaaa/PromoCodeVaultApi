@@ -18,19 +18,19 @@ def create_access_token(user: UserModel, db: Session, data: dict = None, expires
     if data is None:
         data = {}
     if expires_delta:
-        expire = datetime.now(timezone.utc) + expires_delta
+        expire = datetime.now() + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=15)
+        expire = datetime.now() + timedelta(minutes=15)
 
     to_encode = data.copy() | {"sub": str(user.id), "exp": expire}
     encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
     expires_at = (
-        datetime.now(timezone.utc) + expires_delta if expires_delta else expire
+        datetime.now() + expires_delta if expires_delta else expire
     )
     new_token = TokenModel(
         token=encoded_jwt,
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(),
         expires_at=expires_at,
         revoked=False,
         revoked_at=None,
@@ -52,7 +52,7 @@ def verify_token(token: str, db: Session, credentials_exception):
         if (
             db_token is None
             or db_token.revoked
-            or db_token.expires_at < datetime.now(timezone.utc)
+            or db_token.expires_at < datetime.now()
         ):
             raise credentials_exception
 
