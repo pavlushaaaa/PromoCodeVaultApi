@@ -66,6 +66,6 @@ class VoucherCodeModel(Base):
             "last_retrieved_at": datetime_to_string(self.last_retrieved_at) if self.last_retrieved_at else None,
             "discount_value": self.voucher.discount_value,
             "discount_type": self.voucher.discount_type,
-            "metadata": self.code_metadata,
+            "code_metadata": self.code_metadata,
         }
 

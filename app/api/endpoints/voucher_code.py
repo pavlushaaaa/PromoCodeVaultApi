@@ -22,7 +22,6 @@ def get_voucher_details(
     db.refresh(voucher_code)
     if not voucher_code:
         raise HTTPException(status_code=404, detail="Voucher not found")
-    print(voucher_code.to_dict())
     return voucher_code.to_dict()
 
 
@@ -41,7 +40,8 @@ def use_voucher(
         raise HTTPException(status_code=404, detail="Voucher code already used")
 
     voucher_code.used = True
-    voucher_code.code_metadata = metadata.model_dump().get('metadata') if metadata else None
+    print(metadata.model_dump().get('code_metadata'))
+    voucher_code.code_metadata = metadata.model_dump().get('code_metadata') if metadata else None
     voucher_code.used_at = datetime.now()
 
     db.commit()

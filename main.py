@@ -23,7 +23,7 @@ tags_metadata = [
 ]
 
 app = FastAPI(
-    title="VoucherVault API",
+    title="PromoCodeVault API",
     description="This is project to help businesses implement discounts and vouchers logic",
     version="0.0.1",
     license_info={
@@ -43,7 +43,7 @@ def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
     openapi_schema = get_openapi(
-        title="VoucherVault API",
+        title="PromoCodeVault API",
         version="1.0.0",
         description="This is project to help businesses implement discounts and vouchers logic",
         routes=app.routes,
