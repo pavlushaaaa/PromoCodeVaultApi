@@ -5,6 +5,9 @@ from app.schemas.discount import DiscountSchema
 class VoucherCodeIdSchema(BaseModel):
     voucher_code_id: int
 
+class MetadataSchema(BaseModel):
+    code_metadata: dict
+
 
 class VoucherCodeSchema(DiscountSchema):
     id: int

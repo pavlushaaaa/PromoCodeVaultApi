@@ -15,6 +15,8 @@ class VoucherSchema(DiscountSchema):
     product_id: int
     active: bool
     number_of_generated_codes: int
+    codes: list
+
 
 
 class VoucherCreateSchema(BaseModel):
@@ -24,6 +26,7 @@ class VoucherCreateSchema(BaseModel):
     number_of_generated_codes: int
     discount_type: str
     discount_value: int
+    active: bool
 
 
 
