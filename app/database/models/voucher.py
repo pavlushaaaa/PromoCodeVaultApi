@@ -49,7 +49,7 @@ class VoucherCodeModel(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     code = Column(UUID(as_uuid=True), default=uuid.uuid4, nullable=False)
     used = Column(Boolean, default=False)
-    used_at = Column(DateTime, default=datetime.utcnow)
+    used_at = Column(DateTime)
     last_retrieved_at = Column(DateTime)
     voucher = relationship("VoucherModel", back_populates="voucher_codes")
 
